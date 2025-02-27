@@ -48,6 +48,9 @@ public class CreateDefaultAdministratorCommand
             PasswordHash = passwordHash
         };
         
+        await administratorRepository.AddAsync(administrator);
+        await changesSaver.SaveChangesAsync();
+        
     }
     
     #endregion Methods
