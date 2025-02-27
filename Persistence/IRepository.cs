@@ -1,6 +1,7 @@
 ﻿namespace Persistence;
 
-public interface IRepository<T> where T : class 
+public interface IRepository<T> : IQueryable<T>, IAsyncEnumerable<T>
+    where T : class 
 {
     Task<T> GetByIdAsync(Guid id);
     Task<IEnumerable<T>> GetAllAsync();
