@@ -1,14 +1,21 @@
-﻿using Domain;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
+using Persistence.EntityConfigs;
 
 namespace Persistence;
 
 public class ApplicationDbContext : DbContext
 {
+    #region Constructor
+    
     public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
     {
-        
     }
     
-    public DbSet<Administrator> Administrators { get; set; }
+    #endregion Constructor
+
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        base.OnModelCreating(modelBuilder);
+        modelBuilder.ApplyConfiguration(new AdministratorConfig());
+    }
 }
