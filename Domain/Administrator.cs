@@ -11,6 +11,11 @@ public class Administrator
     public Guid Id { get; set; } = Guid.NewGuid();
     
     /// <summary>
+    /// Name
+    /// </summary>
+    public string Name { get; set; }
+    
+    /// <summary>
     /// Username 
     /// </summary>
     [Display(Name = "Username")]

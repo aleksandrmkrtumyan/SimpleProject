@@ -42,6 +42,7 @@ public class CreateDefaultAdministratorCommand
         
         var administrator = new Administrator
         {
+            Name = "Administrator",
             Username = "admin",
             Email = "admin@admin.com",
             AuthTokenId = Guid.NewGuid(),

@@ -6,4 +6,13 @@
         <ImplicitUsings>enable</ImplicitUsings>
     </PropertyGroup>
 
+    <ItemGroup>
+      <PackageReference Include="Autofac" Version="8.2.0" />
+      <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="10.0.0" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Backoffice.Application\Backoffice.Application.csproj" />
+    </ItemGroup>
+
 </Project>
