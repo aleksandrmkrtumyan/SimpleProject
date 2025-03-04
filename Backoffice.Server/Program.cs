@@ -1,6 +1,7 @@
 using Application.AuthOptions;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
+using Backoffice.Application.Commands.Administrators;
 using Backoffice.Application.Queries.Administrators;
 using Microsoft.EntityFrameworkCore;
 using Persistence;
@@ -9,6 +10,8 @@ var builder = WebApplication.CreateBuilder(args);
 
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(connectionString));
+
+builder.Services.AddScoped<CreateDefaultAdministratorCommand>();
 
 builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory());
 builder.Host.ConfigureContainer<ContainerBuilder>(b =>
@@ -35,6 +38,9 @@ using (var scope = app.Services.CreateScope())
 {
     var dbContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
     await dbContext.Database.MigrateAsync();
+    
+    var createDefaultAdministratorCommand = scope.ServiceProvider.GetRequiredService<CreateDefaultAdministratorCommand>();
+    await createDefaultAdministratorCommand.Execute();
 }
 
 app.Run();
