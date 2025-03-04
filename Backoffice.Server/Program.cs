@@ -2,9 +2,13 @@ using Application.AuthOptions;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using Backoffice.Application.Queries.Administrators;
+using Microsoft.EntityFrameworkCore;
 using Persistence;
 
 var builder = WebApplication.CreateBuilder(args);
+
+var connectionString = builder.Configuration.GetConnectionString("ConnectionStrings");
+builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(connectionString));
 
 builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory());
 builder.Host.ConfigureContainer<ContainerBuilder>(b =>
@@ -20,8 +24,8 @@ builder.Host.ConfigureContainer<ContainerBuilder>(b =>
         .As(typeof(IRepository<>))
         .InstancePerLifetimeScope();
     
-    b.RegisterType(typeof(ChangesSaver<>))
-        .As(typeof(IChangesSaver))
+    b.RegisterType<ChangesSaver<ApplicationDbContext>>()
+        .As<IChangesSaver>()
         .InstancePerLifetimeScope();
 });
 
