@@ -8,7 +8,7 @@ public class DesignTimeDbContextFactory : IDesignTimeDbContextFactory<Applicatio
     public ApplicationDbContext CreateDbContext(string[] args)
     {
         var builder = new DbContextOptionsBuilder<ApplicationDbContext>();
-        string connectionString = Environment.GetEnvironmentVariable("DefaultConnection");
+        string connectionString = "Server=DESKTOP-I2AV7J8\\SQLEXPRESS;Database=SimpleProject;Trusted_Connection=True;TrustServerCertificate=True";
         builder.UseSqlServer(connectionString);
         return new ApplicationDbContext(builder.Options);
     }
