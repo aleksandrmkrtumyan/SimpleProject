@@ -5,11 +5,11 @@ namespace Backoffice.Client.Pages;
 
 public partial class Home
 {
-    // [Inject] public CreateDefaultAdministratorCommandProxy CreateDefaultAdministratorCommandProxy { get; set; }
+    [Inject] public CreateDefaultAdministratorCommandProxy CreateDefaultAdministratorCommandProxy { get; set; }
 
 
     protected override async Task OnInitializedAsync()
     {
-        // await CreateDefaultAdministratorCommandProxy.Execute();
+        await CreateDefaultAdministratorCommandProxy.Execute();
     }
 }

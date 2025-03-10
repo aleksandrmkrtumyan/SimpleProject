@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+option csharp_namespace = "Portal";
+
+package portal;
+
+service Executor {
+  rpc Execute (ExecuteInput) returns (ExecuteResult);
+}
+
+message ExecuteInput{
+  string commandOrQueryName = 1;
+  string input = 2;
+}
+
+message ExecuteResult{
+  string result = 1;
+}

@@ -9,13 +9,15 @@ using Persistence;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddRazorPages();
+
 builder.Services.AddScoped<CreateDefaultAdministratorCommand>();
+builder.Services.AddControllers();
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddGrpc(options =>
 {
     options.MaxReceiveMessageSize = 50 * 1024 * 1024;
 });
-builder.Services.AddControllers();
 
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(connectionString));
@@ -50,15 +52,13 @@ using (var scope = app.Services.CreateScope())
     await createDefaultAdministratorCommand.Execute();
 }
 
-app.UseBlazorFrameworkFiles();
-app.UseStaticFiles();
 app.UseRouting();
-
+app.UseBlazorFrameworkFiles();
 app.UseGrpcWeb();
 
 app.MapGrpcService<ExecutorService>()
     .EnableGrpcWeb();
 app.MapControllers();
-
 app.MapFallbackToFile("index.html");
+app.UseStaticFiles();
 app.Run();
