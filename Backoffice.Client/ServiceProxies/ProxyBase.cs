@@ -30,6 +30,35 @@ public abstract class ProxyBase<TInput, TResult>
     }
 }
 
+
+public abstract class ProxyBaseNoInput<TResult>
+{
+    #region Fields
+
+    private readonly Executor executor;
+
+    #endregion Fields
+
+    #region Constructor
+
+    protected ProxyBaseNoInput(Executor executor)
+    {
+        this.executor = executor;
+    }
+
+    #endregion Constructor
+
+   
+    public Task<TResult> Execute()
+    {
+        ExecuteInput executeInput = new ExecuteInput
+        {
+            CommandOrQueryName = GetType().Name.Replace("Proxy", string.Empty)
+        };
+        return executor.Execute<TResult>(executeInput);
+    }
+}
+
 public abstract class ProxyBaseNoResult<TInput>
 {
     #region Fields

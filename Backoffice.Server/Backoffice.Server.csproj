@@ -25,6 +25,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\Backoffice.Application\Backoffice.Application.csproj" />
+      <ProjectReference Include="..\Backoffice.Client\Backoffice.Client.csproj" />
     </ItemGroup>
 
 </Project>

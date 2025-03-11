@@ -31,7 +31,7 @@ public class GetAllAdministratorsQuery
     
     #region Method
 
-    public async Task<List<AdministratorModel>> Execute()
+    public async Task<IEnumerable<AdministratorModel>> Execute()
     {
         var administrators =
             await administratorRepository.ProjectTo<AdministratorModel>(mapperConfiguration).ToListAsync();
